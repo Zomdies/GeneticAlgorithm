@@ -39,7 +39,7 @@ export class Popultation {
         // let individual2: Person = this.individuals[i + 1];
         let newIndividual: Array<number> = [];
         for (var j = 0; j < individual1.getLenghtGenome(); j++) {
-            if (j < numberG) {
+            if (individual1.y(individual1.getGenome(j)) > individual2.y(individual2.getGenome(j))) {
                 newIndividual[j] = individual1.getGenome(j);
             } else {
                 newIndividual[j] = individual2.getGenome(j);
@@ -88,6 +88,7 @@ export class Popultation {
         }
         for (var i = 0; i < this.individuals.length; i++) {
             let newInd: Person = new Person(this.Pm, this.min, this.max, this.crosover(this.Pc, percent[Math.round(Math.random() * (percent.length-1))], percent[Math.round(Math.random() * (percent.length-1))]));
+            newInd.mutation(this.Pm);
             Newindividuals.push(newInd);
         }
         this.individuals = [...Newindividuals];

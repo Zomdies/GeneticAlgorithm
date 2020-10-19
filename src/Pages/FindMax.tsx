@@ -7,10 +7,10 @@ const FindMax: React.FC = () => {
 
     const n: number = 400;
     const Pc: number = 0.8;
-    const Pm: number = 0.25;
+    const Pm: number = 0.005;
     const min: number = -4;
     const max: number = -0.01;
-    const epohe: number = 1000;
+    const epohe: number = 500;
 
     function y(x: number): number {
         return 1 / x;
