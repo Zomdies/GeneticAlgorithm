@@ -1,0 +1,1 @@
+export const countPopulation = 10;
