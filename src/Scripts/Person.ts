@@ -1,16 +1,18 @@
 
 export class Person {
 
-    public id: number = 0;
-    public result: number = 0;
+    public id : number = 0;
+    public result : number = 0;
     private genom: Array<number> = new Array(400);
+    private Countm : number = 0
     private min: number = 0;
     private max: number = 0;
     public fit: number = 0;
+    
 
-
-    constructor(Pm: number, min: number, max: number, genom?: Array<number>) {
-        this.id = Math.ceil(Math.random() * 1000);
+    constructor(Pm: number,Countm : number, min: number, max: number, genom?: Array<number>) {
+        this.id = Math.ceil(Math.random()*1000);
+        this.Countm = Countm;
         if (min >= max) throw new Error("min >= max");
         this.max = max;
         this.min = min;
@@ -18,9 +20,9 @@ export class Person {
             this.genom = genom;
             this.mutation(Pm);
         }
-        else {
+        else{
             this.generateGenome();
-        }
+        }  
     }
     public getGenomeAll = (): Array<number> => {
         return this.genom;
@@ -47,17 +49,25 @@ export class Person {
         // }
         // this.showMessage(this.genom);
     }
-    public mutation = (Pm: number) => {
-        for (var i = 0; i < this.genom.length; i++) {
-            const digit: number = Math.random();
-            if (digit <= Pm) {
-                this.genom[i] = (Math.random() * (this.max - this.min)) + this.min;
+    private mutation = (Pm: number) => {
+        const digit: number = Math.random();
+        if (digit <= Pm) {
+            let digit2 : number = this.Countm * this.genom.length;
+            let genom: Array<number> = new Array(400);
+            for (var i = 0; i < this.genom.length; i++) {
+                if (i < digit2){
+                    genom[i] = (Math.random() * (this.max - this.min)) + this.min;
+                }else{
+                    genom[i] = this.genom[i];
+                }
+                
             }
+            this.genom = [...genom];
         }
 
         // this.showMessage(this.genom);
     }
-    public y = (x: number): number => {
+    private y = (x: number): number => {
         return 1 / x;
     }
     public fitnes = () => {
@@ -65,11 +75,11 @@ export class Person {
         var fit2: number = 0;
 
         for (var i of this.genom) {
-            fit += this.y(i);
-            fit2 += i;
+            fit += Math.abs(this.y(i));
+            fit2 += this.y(i);
         }
         this.fit = fit;
-        this.result = fit2 / 400;
+        this.result = fit2/400;
     }
 }
 

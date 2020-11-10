@@ -1,25 +1,28 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react';
 
 import { Popultation } from "../Scripts/Population"
 import { Person } from '../Scripts/Person'
 
+
 const FindMax: React.FC = () => {
 
-    const n: number = 400;
-    const Pc: number = 0.8;
-    const Pm: number = 0.005;
+    const n: number = 1000;
+    const Pc: number = 0.60;
+    const Pm: number = 0.5;
+    const Countm: number = 0.35;
     const min: number = -4;
     const max: number = -0.01;
-    const epohe: number = 500;
+    const epohe: number = 3000;
+    const [data, setData] = useState([{}]);
 
     function y(x: number): number {
         return 1 / x;
     }
     const start = () => {
-        var popultation: Popultation = new Popultation(Pc, Pm, n, min, max);
+        var popultation: Popultation = new Popultation(Pc, Pm, Countm, n, min, max);
         for (var i = 0; i < epohe; i++) {
             console.log(`EPOCHE : ${i}`);
-            popultation.selectionV3();
+            popultation.selection();
             // popultation.showIndividduals();
             // var NewIndividuals: Array<Person> = popultation.select();
             // console.log(`EPOCHE : ${i}`)
@@ -37,7 +40,7 @@ const FindMax: React.FC = () => {
 
     return (
         <div>
-            Start work algorithm
+            <div>Start work algorithm</div>
         </div>
     )
 }
